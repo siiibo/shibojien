@@ -26,17 +26,17 @@ function isSlachCommand(e: GoogleAppsScript.Events.DoPost): boolean {
 
 function slackHandler(e: GoogleAppsScript.Events.DoPost){
     if (isBlockAction(e)) {
-        responseKiyopediaAction(JSON.parse(e.parameter['payload']));
+        responseButtonAction(JSON.parse(e.parameter['payload']));
     }
     else if (isSlachCommand(e)) {
-        receiveKiyopediaCommand(e.parameter);
+        receiveJienCommand(e.parameter);
     }
     else {
         return;
     }
 }
 
-function receiveKiyopediaCommand(parameter: SlashCommand){
+function receiveJienCommand(parameter: SlashCommand){
     const query = parameter.text;
     if (query == "") {
         const response: RespondArguments = {
@@ -113,7 +113,7 @@ function receiveKiyopediaCommand(parameter: SlashCommand){
 }
 
 
-function responseKiyopediaAction(payload: BlockAction){
+function responseButtonAction(payload: BlockAction){
     const sheet = SpreadsheetApp.openById(PropertiesService.getScriptProperties().getProperty('SHIBOJIEN_SPREADSHEET_ID')).getSheets()[0];
 
     const query = payload['actions'][0]['value'];
